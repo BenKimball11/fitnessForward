@@ -3,6 +3,7 @@ import { WorkoutContext } from "./WorkoutProvider"
 import { WorkoutCard } from "./WorkoutCard"
 import "./Workout.css"
 import { useHistory } from "react-router-dom"
+import "bootstrap/dist/css/bootstrap.min.css"
 
 export const WorkoutList = () => {
   // This state changes when `getAnimals()` is invoked below

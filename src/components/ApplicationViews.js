@@ -7,10 +7,10 @@ import { WorkoutList } from "./workout/WorkoutList"
 import { WorkoutForm } from "./workout/WorkoutForm"
 import { WorkoutDetail } from "./workout/WorkoutDetail"
 
-import { ExerciseProvider } from "./exercise/ExerciseProvider"
-import { ExerciseList } from "./exercise/ExerciseList"
-import { ExerciseForm } from "./exercise/ExerciseForm"
-import { ExerciseDetail } from "./exercise/ExerciseDetail"
+import { WorkoutExerciseProvider } from "./exercise/WorkoutExerciseProvider"
+import { WorkoutExerciseList } from "./exercise/WorkoutExerciseList"
+import { WorkoutExerciseForm } from "./exercise/WorkoutExerciseForm"
+import { WorkoutExerciseDetail } from "./exercise/WorkoutExerciseDetail"
  
 export const ApplicationViews = () => {
     return (
@@ -23,7 +23,7 @@ export const ApplicationViews = () => {
             {/* Render the animal list when http://localhost:3000/animals */}
             <WorkoutProvider>        
 
-                <ExerciseProvider>
+                <WorkoutExerciseProvider>
                     
                         <Route exact path="/workouts">
                             <WorkoutList />
@@ -39,32 +39,32 @@ export const ApplicationViews = () => {
                     <WorkoutForm />
                         </Route>
                     
-                </ExerciseProvider>
+                </WorkoutExerciseProvider>
             </WorkoutProvider>
 
             {/* Render the animal list when http://localhost:3000/customers */}
-            <ExerciseProvider>  
-                <Route path="/exercises">
-                    <ExerciseList />
+            <WorkoutExerciseProvider>  
+                <Route path="/workoutExercises">
+                    <WorkoutExerciseList />
                 </Route>
-            </ExerciseProvider>  
+            </WorkoutExerciseProvider>  
 
             {/* Render the animal list when http://localhost:3000/locations */}
-            <ExerciseProvider>
-                <Route exact path="/exercises">
-                    <ExerciseList />
+            <WorkoutExerciseProvider>
+                <Route exact path="/workoutExercises">
+                    <WorkoutExerciseList />
                 </Route>
-                <Route exact path="/exercises/detail/:exerciseId(\d+)">
-                    <ExerciseDetail />
+                <Route exact path="/workoutExercises/detail/:workoutExerciseId(\d+)">
+                    <WorkoutExerciseDetail />
                 </Route>
-                <Route path="/exercises/edit/:exerciseId(\d+)">
-                    <ExerciseForm />
+                <Route path="/workoutExercises/edit/:workoutExerciseId(\d+)">
+                    <WorkoutExerciseForm />
                 </Route>
 
-                <Route exact path="/exercises/create">
-                        <ExerciseForm />
+                <Route exact path="/workoutExercises/create">
+                        <WorkoutExerciseForm />
                     </Route>
-            </ExerciseProvider>
+            </WorkoutExerciseProvider>
         </>
     )
 }

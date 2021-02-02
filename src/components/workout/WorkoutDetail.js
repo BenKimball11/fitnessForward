@@ -3,6 +3,9 @@ import React, { useContext, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { WorkoutContext } from "./WorkoutProvider.js";
 import "./Workout.css";
+import "bootstrap/dist/css/bootstrap.min.css"
+import DatePicker from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css";
 
 export const WorkoutDetail = () => {
     const { getWorkoutById, removeWorkout } = useContext(WorkoutContext);
@@ -29,7 +32,7 @@ export const WorkoutDetail = () => {
   return (
     <section className="workout">
       <h3 className="workout__name">{workout.name}</h3>
-      <div className="workout__date">type: {workout.type}</div>
+      <div className="workout__date">Date: {workout.date}</div>
       <div className="workout__exercises">
           <h4 className="workout__exercises__header">Exercises</h4>
           <div className="workout__exercises__names">

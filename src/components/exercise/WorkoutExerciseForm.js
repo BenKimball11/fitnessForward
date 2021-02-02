@@ -1,23 +1,28 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useHistory, useParams } from 'react-router-dom';
-import { ExerciseContext } from "./ExerciseProvider";
-import "./Exercise.css";
+import { WorkoutExerciseContext } from "./WorkoutExerciseProvider";
+import "./WorkoutExercise.css";
 
 
-export const ExerciseForm = () => {
-    const { addExercise, getExerciseById, updateExercise } = useContext(ExerciseContext);
+export const WorkoutExerciseForm = () => {
+    const { addWorkoutExercise, getWorkoutExerciseById, updateWorkoutExercise } = useContext(WorkoutExerciseContext);
 
     // For edit, hold on to state of location in this view
     // You need an initial state for it to allow you to edit it
-    const [exercise, setExercise] = useState({
+    const [workoutExercise, setWorkoutExercise] = useState({
       name: "",
-      address: ""
+      date: "",
+      logEntry: "",
+      workoutId: 0,
+      exerciseId: 0,
+      weightUsed: 0,
+      restInterval: ""
     });
 
     //wait for data before button is active
     const [isLoading, setIsLoading] = useState(true);
 
-    const {exerciseId} = useParams();
+    const {workoutExerciseId} = useParams();
     
     const history = useHistory();
 
@@ -26,47 +31,46 @@ export const ExerciseForm = () => {
     const handleControlledInputChange = (event) => {
       //When changing a state object or array,
       //always create a copy make changes, and then set state.
-      const newExercise = { ...exercise };
+      const newWorkoutExercise = { ...workoutExercise };
 
       //location is an object with properties.
       //set the property to the new value
-      newExercise[event.target.name] = event.target.value;
+      newWorkoutExercise[event.target.name] = event.target.value;
       
       //update state
-      setExercise(newExercise);
+      setWorkoutExercise(newWorkoutExercise);
     };
 
-    const handleSaveExercise = () => {
-      if (parseInt(exercise.name || exercise.address) === "") {
+    const handleSaveWorkoutExercise = () => {
+      if (parseInt(workoutExercise.name || workoutExercise) === "") {
           window.alert("Please fill out the name and address fields")
       } else {
         //disable the button - no extra clicks
         setIsLoading(true);
-        if (exerciseId){
+        if (workoutExerciseId){
           //PUT - update
-          updateExercise({
-              id: exercise.id,
-              name: exercise.name,
-              address: exercise.address
+          updateWorkoutExercise({
+              id: workoutExercise.id,
+              name: workoutExercise.name,
           })
-          .then(() => history.push(`/exercises/detail/${exercise.id}`))
+          .then(() => history.push(`/workoutExercises/detail/${workoutExercise.id}`))
         }else {
           //POST - add
-          addExercise({
-              name: exercise.name,
-              address: exercise.address
+          addWorkoutExercise({
+              name: workoutExercise.name,
+           
           })
-          .then(() => history.push("/exercises"))
+          .then(() => history.push("/workoutExercises"))
         };
       };
     };
 
     // Get exercises. If exerciseId is in the URL, getexerciseById
     useEffect(() => {
-        if (exerciseId){
-          getExerciseById(exerciseId)
+        if (workoutExerciseId){
+          getWorkoutExerciseById(workoutExerciseId)
           .then(exercise => {
-              setExercise(exercise);
+              setWorkoutExercise(exercise);
               setIsLoading(false);
           })
         } else {
@@ -80,32 +84,23 @@ export const ExerciseForm = () => {
 
     return (
       <form className="exerciseForm">
-        <h2 className="exerciseForm__title">{exerciseId ? <>Edit Exercise</> : <>New Exercise</>}</h2>
+        <h2 className="exerciseForm__title">{workoutExerciseId ? <>Edit Exercise</> : <>New Exercise</>}</h2>
         <fieldset>
           <div className="form-group">
-            <label htmlFor="exerciseName">exercise name: </label>
+            <label htmlFor="exerciseName">Exercise name: </label>
             <input type="text" id="exerciseName" name="name" required autoFocus className="form-control"
             placeholder="exercise name"
             onChange={handleControlledInputChange}
-            defaultValue={exercise.name}/>
+            defaultValue={workoutExercise.name}/>
           </div>
-        </fieldset>
-        <fieldset>
-            <div className="form-group">
-                <label htmlFor="exerciseAddress">exercise Address: </label>
-                <input type="text" id="exerciseAddress" name="address" required className="form-control"
-                placeholder="exercise address"
-                onChange={handleControlledInputChange}
-                defaultValue={exercise.address} />
-            </div>
         </fieldset>
         <button className="btn btn-primary"
           disabled={isLoading}
           onClick={event => {
             event.preventDefault(); // Prevent browser from submitting the form and refreshing the page
-            handleSaveExercise();
+            handleSaveWorkoutExercise();
           }}>
-        {exerciseId ? <>Save Exercise</> : <>Add Exercise</>}</button>
+        {workoutExerciseId ? <>Save Exercise</> : <>Add Exercise</>}</button>
       </form>
     );
 };

@@ -2,58 +2,58 @@ import React, { useState, createContext } from "react"
 
 // The context is imported and used by individual components that need data
 // createContext() makes an object with properties
-export const ExerciseContext = createContext();
+export const WorkoutExerciseContext = createContext();
 
 // This component establishes what data can be used.
-export const ExerciseProvider = (props) => {
-    const [exercises, setExercise] = useState([])
+export const WorkoutExerciseProvider = (props) => {
+    const [workoutExercises, setWorkoutExercise] = useState([])
 
-    const getExercise = () => {
+    const getWorkoutExercise = () => {
         return fetch("http://localhost:8088/exercises?_embed=employees&_embed=animals")
         .then(res => res.json())
-        .then(setExercise);
+        .then(setWorkoutExercise);
     };
 
-    const getExerciseById = (id) => {
+    const getWorkoutExerciseById = (id) => {
         return fetch(`http://localhost:8088/exercises/${id}?_embed=employees&_embed=animals`)
             .then(res => res.json());
     };
 
-    const addExercise = exerciseObj => {
+    const addWorkoutExercise = workoutExerciseObj => {
         return fetch("http://localhost:8088/exercises", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(exerciseObj)
+            body: JSON.stringify(workoutExerciseObj)
         })
-        .then(getExercise);
+        .then(getWorkoutExercise);
     };
 
-    const updateExercise = exercise => {
-        return fetch(`http://localhost:8088/exercises/${exercise.id}`, {
+    const updateWorkoutExercise = workoutExercise => {
+        return fetch(`http://localhost:8088/exercises/${workoutExercise.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify(exercise)
+          body: JSON.stringify(workoutExercise)
         })
-          .then(getExercise);
+          .then(getWorkoutExercise);
       };
 
-    const removeExercise = exerciseId => {
-        return fetch(`http://localhost:8088/exercises/${exerciseId}`, {
+    const removeWorkoutExercise = exercisesId => {
+        return fetch(`http://localhost:8088/exercises/${exercisesId}`, {
             method: "DELETE"
         })
-        .then(getExercise);
+        .then(getWorkoutExercise);
     };
 
     // Subcomponent that renders a subset of itself called a Provider
     // Provider = Interface that other components can use in order to gain access
     // to what the provider holds.
     return (
-        <ExerciseContext.Provider value={{exercises, getExercise, getExerciseById, addExercise, updateExercise, removeExercise}}>
+        <WorkoutExerciseContext.Provider value={{workoutExercises, getWorkoutExercise, getWorkoutExerciseById, addWorkoutExercise, updateWorkoutExercise, removeWorkoutExercise}}>
             {props.children}
-        </ExerciseContext.Provider>
+        </WorkoutExerciseContext.Provider>
     );
 };

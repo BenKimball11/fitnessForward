@@ -15,7 +15,7 @@ export const WorkoutProvider = (props) => {
     };
 
     const getWorkoutById = (id) => {
-        return fetch(`http://localhost:8088/workouts/${id}?_embed=workoutss&_embed=exercises`)
+        return fetch(`http://localhost:8088/workouts/${id}?_embed=workouts&_embed=exercises`)
             .then(res => res.json());
     };
 

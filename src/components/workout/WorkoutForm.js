@@ -1,21 +1,24 @@
 import React, { useContext, useEffect, useState } from "react"
-import { ExerciseContext } from "../exercise/ExerciseProvider"
+import { WorkoutExerciseContext } from "../exercise/WorkoutExerciseProvider"
 import { WorkoutContext } from "../workout/WorkoutProvider"
 //import { CustomerContext } from "../customer/CustomerProvider"
 import "./Workout.css"
 import { useHistory, useParams } from 'react-router-dom';
+import "bootstrap/dist/css/bootstrap.min.css"
+
 
 export const WorkoutForm = () => {
     const { addWorkout, getWorkoutById, updateWorkout } = useContext(WorkoutContext)
-    const { exercises, getExercises } = useContext(ExerciseContext)
+    const { workoutExercises, getWorkoutExercise } = useContext(WorkoutExerciseContext)
     //const { customers, getCustomers } = useContext(CustomerContext)
 
     //for edit, hold on to state of animal in this view
     const [workout, setWorkout] = useState({
-      name: "",
-      breed: "",
-      customerId: 0,
-      locationId: 0
+      workoutName: "",
+      logEntry: "",
+      date: Date.now(),
+      userId: 0,
+      workoutMoodId:0
     })
 
     //wait for data before button is active
@@ -38,7 +41,7 @@ export const WorkoutForm = () => {
     }
 
     const handleSaveWorkout = () => {
-      if (parseInt(workout.exerciseId) === 0) {
+      if (parseInt(workout.workoutExerciseId) === 0) {
           window.alert("Please select an exercise")
       } else {
         //disable the button - no extra clicks
@@ -47,42 +50,26 @@ export const WorkoutForm = () => {
           //PUT - update
           updateWorkout({
               id: workout.id,
-              name: workout.name,
-              breed: workout.breed,
-              locationId: parseInt(workout.locationId),
-              customerId: parseInt(workout.customerId)
+              date: workout.timestamp,
+              name: workout.workoutName,
+              workoutMoodId: workout.workoutMoodId,
+              logEntry: workout.logEntry,
+              userId: parseInt(workout.userId)
           })
           .then(() => history.push(`/workouts/detail/${workout.id}`))
         }else {
           //POST - add
           addWorkout({
-              name: workout.name,
-              breed: workout.breed,
-              locationId: parseInt(workout.locationId),
-              customerId: parseInt(workout.customerId)
+              name: workout.workoutName,
+              date: workout.Date(),
+              workoutMoodId: parseInt(workout.workoutMoodId),
+              userId: parseInt(workout.userId),
+              logEntry: workout.logEntry
           })
           .then(() => history.push("/workouts"))
         }
       }
     }
-
-    // Get customers and locations. If animalId is in the URL, getAnimalById
- /*    useEffect(() => {
-      getCustomers().then(getLocations).then(() => {
-        if (animalId) {
-          getAnimalById(animalId)
-          .then(animal => {
-              setAnimal(animal)
-              setIsLoading(false)
-          })
-        } else {
-          setIsLoading(false)
-        }
-      })
-    }, []) */
-
-    //since state controlls this component, we no longer need
-    //useRef(null) or ref
 
     return (
       <form className="workoutForm">
@@ -96,39 +83,38 @@ export const WorkoutForm = () => {
             value={workout.name}/>
           </div>
         </fieldset>
+            {/* Date dropdown */}
         <fieldset>
           <div className="form-group">
-              <label htmlFor="focus">Workout focus:</label>
-              <input type="text" name="focus" id="focus" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Workout Focus" value={workout.focus}/>
+            <label htmlFor="date">Workout date: </label>
+            <input type="date" id="workoutDate" name="workoutDate" required autoFocus className="form-control"
+            placeholder="Workout Date"
+            onChange={handleControlledInputChange}
+            value={workout.Date}/>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <div className="form-group">
+              <label htmlFor="focus">Journal:</label>
+              <textarea type="text" name="logEntry" id="logEntry" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Entry" value={workout.logEntry}/>
           </div>
         </fieldset>
         {/* Create a add an exercise movement button with drop downs within this fieldset */}
+
         <fieldset>
           <div className="form-group">
             <label htmlFor="exercise">Add a exercise: </label>
-            <select value={workout.exerciseId} name="exerciseId" id="workoutExercise" className="form-control" onChange={handleControlledInputChange}>
+            <select value={workout.exercisesId} name="exercisesId" id="exercises" className="form-control" onChange={handleControlledInputChange}>
               <option value="0">Select an exercise</option>
-              {exercises.map(e => (
+              {workoutExercises.map(e=> (
                 <option key={e.id} value={e.id}>
-                  {e.name}
+                  {e.name} 
                 </option>
               ))}
             </select>
           </div>
         </fieldset>
-{/*         <fieldset>
-          <div className="form-group">
-            <label htmlFor="customer">Customer: </label>
-            <select value={animal.customerId} name="customerId" id="customerAnimal" className="form-control" onChange={handleControlledInputChange}>
-              <option value="0">Select a customer</option>
-              {customers.map(c => (
-                <option key={c.id} value={c.id}>
-                    {c.name}
-                </option>
-              ))}
-            </select>
-          </div>
-        </fieldset> */}
         <button className="btn btn-primary"
           disabled={isLoading}
           onClick={event => {
@@ -136,6 +122,18 @@ export const WorkoutForm = () => {
             handleSaveWorkout()
           }}>
         {workoutId ? <>Save Workout</> : <>Add Workout</>}</button>
+            <button onClick={() => {history.push("/workouts/create")}}>
+                Add Another Exercise
+            </button>
+        <div className="workouts"></div>
+    <div className="workouts">
+      {/* {console.log("WorkoutList: Render", workouts)} */}
+      {
+        workoutExercises.map(workout => {
+          return <WorkoutForm key={workout.id} workout={workout} />
+        })
+      }
+    </div>
       </form>
     )
 }

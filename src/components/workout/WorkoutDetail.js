@@ -3,9 +3,9 @@ import React, { useContext, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { WorkoutContext } from "./WorkoutProvider.js";
 import "./Workout.css";
-import "bootstrap/dist/css/bootstrap.min.css"
-import DatePicker from "react-datepicker"
-import "react-datepicker/dist/react-datepicker.css";
+//import "bootstrap/dist/css/bootstrap.min.css"
+//import DatePicker from "react-datepicker"
+//import "react-datepicker/dist/react-datepicker.css";
 
 export const WorkoutDetail = () => {
     const { getWorkoutById, removeWorkout } = useContext(WorkoutContext);
@@ -30,19 +30,23 @@ export const WorkoutDetail = () => {
     []);
 
   return (
-    <section className="workout">
-      <h3 className="workout__name">{workout.name}</h3>
-      <div className="workout__date">Date: {workout.date}</div>
-      <div className="workout__exercises">
+  
+      <section className="workout">
+        <h3 className="workout__name">{workout.name}</h3>
+        <div className="workout__date">Date: {workout.timestamp}</div>
+        {/* What's up with the question mark???? See below.*/}
+        <div className="workout__entry">Entry: {workout.logEntry}</div>
+        <div className="workout__mood">Mood: {workout.workoutMood}</div>
+        <div className="workout__exercises">
           <h4 className="workout__exercises__header">Exercises</h4>
           <div className="workout__exercises__names">
             {workout.exercise?.map(exercise => exercise.name).join(", ")}
           </div>
       </div>
-      <button onClick={handleRemoving}>Remove Workout</button>
-      <button onClick={() => {
-          history.push(`/workouts/edit/${workout.id}`)
-      }}>Edit</button>
-    </section>
-  );
+        <button className="workout__removeButton" onClick={handleRemoving}> Remove workout</button>
+        <button onClick={() => {
+            history.push(`/workouts/edit/${workout.id}`)
+        }}>Edit</button>
+      </section>
+    )
 };

@@ -11,7 +11,7 @@ export const Login = props => {
     const history = useHistory()
 
     const existingUserCheck = () => {
-        return fetch(`http://localhost:8088/users?email=${email.current.value}`)
+        return fetch(`http://localhost:8088/user?email=${email.current.value}`)
             .then(res => res.json())
             .then(user => user.length ? user[0] : false)
     }
@@ -22,8 +22,8 @@ export const Login = props => {
         existingUserCheck()
             .then(exists => {
                 if (exists) {
-                    localStorage.setItem("fitnessforward_users", exists.id)
-                    history.push("/")
+                    localStorage.setItem("fitnessforward_user", exists.id)
+                    history.push("/workouts")
                 } else {
                     existDialog.current.showModal()
                 }

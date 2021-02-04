@@ -9,13 +9,13 @@ export const WorkoutProvider = (props) => {
     const [workouts, setWorkouts] = useState([])
 
     const getWorkouts = () => {
-        return fetch("http://localhost:8088/workouts?_embed=type&_embed=exercises")
+        return fetch("http://localhost:8088/workouts?_embed=exercises")
         .then(res => res.json())
         .then(setWorkouts);
     };
 
     const getWorkoutById = (id) => {
-        return fetch(`http://localhost:8088/workouts/${id}?_embed=workouts&_embed=exercises`)
+        return fetch(`http://localhost:8088/workouts/${id}?_embed=exercises`)
             .then(res => res.json());
     };
 
@@ -31,7 +31,7 @@ export const WorkoutProvider = (props) => {
     };
 
     const updateWorkout = workout => {
-        return fetch(`http://localhost:8088/workouts/${workout.id}`, {
+        return fetch(`http://localhost:8088/workouts/${workouts.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json"

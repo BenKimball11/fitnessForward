@@ -8,7 +8,7 @@ export const ExerciseDetail = () => {
     const { getExerciseById, removeExercise } = useContext(ExerciseContext);
 
     // This is one location so it is an object, not an array
-    const [exercise, setExercise] = useState({});
+    const [exercise, setExercise, workout ] = useState({});
 
     // useParams returns an object based off the key (locationId) for example
     const {exerciseId} = useParams();
@@ -29,13 +29,10 @@ export const ExerciseDetail = () => {
   return (
     <section className="exercise">
       <h3 className="exercise__name">{exercise.name}</h3>
-      <div className="exercise__workout__weightUsed">Weight Used: {exercise.workout?.weightUsed}</div>
+      <div className="exercise__workout__weightUsed">Workout: {exercise.workout?.name}</div>
         {/* What's up with the question mark???? See below.*/}
-      <div className="exercise__workout__restInterval">Rest Interval: {exercise.workout?.restInterval}</div>
-      <button onClick={handleRemoving}>Remove Exercise</button>
-      <button onClick={() => {
-          history.push(`/exercises/edit/${exercise.id}`)
-      }}>Edit</button>
+      <div className="exercise__workout__restInterval">Weight Used: {exercise.weightUsed}</div>
+      <div className="exercise__workout__restInterval">Rest Interval: {exercise.restInterval}</div>
     </section>
   );
 };

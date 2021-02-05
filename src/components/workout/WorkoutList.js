@@ -21,9 +21,9 @@ export const WorkoutList = () => {
   return (
     <>
      <h2>Previous Workouts</h2>
-            <button onClick={() => {history.push("/workouts/create")}}>
+           <button onClick={() => {history.push("/workouts/create")}}>
                 Add Workout
-            </button> 
+            </button>  
         <div className="workouts"></div>
     <div className="workouts">
       {console.log("WorkoutList: Render", workouts)}

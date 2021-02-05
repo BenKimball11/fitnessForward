@@ -1,42 +1,3 @@
-/* import React, { useContext, useEffect } from "react"
-import { ExerciseContext } from "./ExerciseProvider"
-import { ExerciseCard } from "./ExerciseCard"
-import "./Exercise.css"
-import { useHistory } from "react-router-dom"
-
-export const ExerciseList = () => {
-  // This state changes when `getAnimals()` is invoked below
-  const { exercises, getExercise } = useContext(ExerciseContext)
-
-  //useEffect - reach out to the world for something
-  useEffect(() => {
-    console.log("exerciseList: useEffect - getExercise")
-    getExercise()
-
-  }, [])
-
-  const history = useHistory()
-
-  return (
-    <>
-     <h2>Exercises</h2>
-            <button onClick={() => {history.push("/exercises/create")}}>
-                Add Exercise
-            </button>
-        <div className="Exercises"></div>
-    <div className="Exercises">
-      {console.log("ExerciseList: Render", exercises)}
-      {
-        exercises.map(exercise => {
-          return <ExerciseCard key={exercise.id} exercise={exercise} />
-        })
-      }
-    </div>
-    </>
-  )
-} */
-
-
 import React, { useContext, useEffect } from "react"
 import { ExerciseContext } from "./ExerciseProvider"
 import { ExerciseCard } from "./ExerciseCard"
@@ -62,9 +23,9 @@ export const ExerciseList = () => {
   return (
         <>
             <h2>Exercises</h2>
-                <button onClick={() => {history.push("/exercises/create")}}>
+              {/*   <button onClick={() => {history.push("/exercises/create")}}>
                     Add Exercise
-                </button> 
+                </button>  */}
             <div className="exercises">
             {console.log(workouts)}
             {

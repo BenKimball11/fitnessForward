@@ -20,7 +20,7 @@ export const ExerciseProvider = (props) => {
     };
 
     const addExercise = exerciseObj => {
-        return fetch("http://localhost:8088/exercises", {
+        return fetch("http://localhost:8088/exercises?_embed=workouts", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

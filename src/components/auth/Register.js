@@ -30,13 +30,14 @@ export const Register = (props) => {
                         },
                         body: JSON.stringify({
                             email: email.current.value,
-                            name: `${firstName.current.value} ${lastName.current.value}`
+                            name: `${firstName.current.value} ${lastName.current.value}`,
+                            verifyPassword: verifyPassword.current.value
                         })
                     })
                         .then(res => res.json())
                         .then(createdUser => {
                             if (createdUser.hasOwnProperty("id")) {
-                                localStorage.setItem("fitnessforward_users", createdUser.id)
+                                localStorage.setItem("fitnessforward_user", createdUser.id)
                                 history.push("/")
                             }
                         })
@@ -69,6 +70,10 @@ export const Register = (props) => {
                 <fieldset>
                     <label htmlFor="inputEmail"> Email address </label>
                     <input ref={email} type="email" name="email" className="form-control" placeholder="Email address" required />
+                </fieldset>
+                <fieldset>
+                    <label htmlFor="inputPassWord"> Password </label>
+                    <input ref={verifyPassword} type="verifyPassword" name="verifyPassword" className="form-control" placeholder="Password" required />
                 </fieldset>
                 <fieldset>
                     <button type="submit"> Sign in </button>

@@ -39,18 +39,7 @@ export const ApplicationViews = () => {
                     <WorkoutForm />
                         </Route>
                     
-                </ExerciseProvider>
-            </WorkoutProvider>
-
-            {/* Render the animal list when http://localhost:3000/customers */}
-            <ExerciseProvider>  
-                <Route path="/exercises">
-                    <ExerciseList />
-                </Route>
-            </ExerciseProvider>  
-
-            {/* Render the animal list when http://localhost:3000/locations */}
-            <ExerciseProvider>
+           
                 <Route exact path="/exercises">
                     <ExerciseList />
                 </Route>
@@ -65,6 +54,10 @@ export const ApplicationViews = () => {
                         <ExerciseForm />
                     </Route>
             </ExerciseProvider>
+                
+        </WorkoutProvider>
+
+        
         </>
     )
 }

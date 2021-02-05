@@ -2,7 +2,7 @@ import React from "react"
 import "./Exercise.css"
 import { Link } from "react-router-dom"
 
-export const ExerciseCard = ({exercise}) => {
+export const ExerciseCard = ({exercise, workout}) => {
     return (
     <section className="exercise">
         <h3 className="exercise__name">         
@@ -10,7 +10,6 @@ export const ExerciseCard = ({exercise}) => {
           { exercise.name }
         </Link>
         </h3>
-        <div className="exercise__address"> {exercise.address} </div>
+        <div className="exercise__workout">{exercise.name}</div>
     </section>
 )}
-

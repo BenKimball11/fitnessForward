@@ -38,12 +38,11 @@ export const ExerciseDetail = ({exercise, exerciseDelete, refreshWorkout}) => {
 
       <button className="deleteBtn"
                     onClick={() => exerciseDelete(exercise.id)}>
-                    Delete exercise 
+                    Remove exercise 
           </button>
 
-      {/* <button onClick={removeExercise}>Remove Exercise</button> */}
       <button onClick={() => {
-          history.push(`/exercises/detail/${exercise.id}`)
+          history.push(`/exercises/edit/${exercise.id}`)
       }}>Edit</button>
     </section>
   );

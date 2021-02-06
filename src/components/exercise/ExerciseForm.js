@@ -5,56 +5,131 @@ import "./Exercise.css"
 import { useHistory, useParams } from 'react-router-dom';
 
 export const ExerciseForm = () => {
-    const { addExercise } = useContext(ExerciseContext)
-    const { workouts, getWorkouts, updateExercise, deleteExercise } = useContext(WorkoutContext)
+    const { addExercise, updateExercise, getExerciseById } = useContext(ExerciseContext)
+    const { workouts, getWorkouts,  deleteExercise } = useContext(WorkoutContext)
+    //const [exercise, setExercise ] = useState({})
     const user = localStorage.getItem("fitnessforward_user")
     
 
-    const [exercise, setExercise] = useState({
-      //id: parseInt(exercise.id),
-
-      name: "",
-      workoutId: 0,
-      weightUsed: "",
-      restInterval: ""
-    });
-
+ /*    const [isLoading, setIsLoading] = useState(true);
+    const {exerciseId} = useParams();
+    
     const history = useHistory();
 
     useEffect(() => {
       getWorkouts()
-    }, []) // eslint-disable-line react-hooks/exhaustive-deps
-
-//debugger
-
-    //when a field changes, update state. The return will re-render and display based on the values in state
-    //Controlled component
+      .then(() => {
+        if (exerciseId){
+          getExerciseById(exerciseId)
+          .then(exericise => {
+            setExercise(exericise)
+            setIsLoading(false)
+          })
+        } else {
+          setIsLoading(false)
+        }
+      
+      })
+    }, [])
+    
     const handleControlledInputChange = (event) => {
-       /* When changing a state object or array,
-      always create a copy, make changes, and then set state. */
       const newExercise = { ...exercise }
-      /*  Animal is an object with properties.
-      Set the property to the new value
-      using object bracket notation.  */
+      
+      
       newExercise[event.target.id] = event.target.value
-      // update state
+      
+      
       setExercise(newExercise)
     }
+    
+    const handleClickSaveExercise = () => {
+  const user = localStorage.getItem("fitnessforward_user")
 
-    const handleClickSaveExercise = (event) => {
-      event.preventDefault() //Prevents the browser from submitting the form
+    if (exercise.workoutId === "" || exercise.name === "" || exercise.weightUsed === "" || exercise.restInterval === "")  {
+      window.alert("Please fill out the fields")
+    } else {
 
-      const workoutId = parseInt(exercise.workoutId)
-
-      if (workoutId === 0) {
-        window.alert("Please select a workout")
-      } else {
-        exercise.workoutId = workoutId
-        addExercise(exercise)
-        .then(() => history.push(`/workouts/detail/${exercise.workoutId}`))
+      setIsLoading(true);
+      if (exerciseId){
+        updateExercise({
+          id: parseInt(exercise.id),
+          workoutId:exercise.workoutId,
+          userId: parseInt(user),
+          name: exercise.name,
+          weightUsed: exercise.weightUsed,
+          restInterval: exercise.restInterval,
+        })
+        .then(() => history.push(`/exercises/detail/${exercise.id}`))
+      }else {
+        
+        addExercise({
+          id: parseInt(exercise.id),
+          userId: parseInt(user),
+          workoutId:exercise.workoutId,
+          name: exercise.name,
+          weightUsed: exercise.weightUsed,
+          restInterval: exercise.restInterval,
+        })
+        .then(() => history.push("/workouts"))
       }
     }
+  }
+  
+  useEffect(() => {
 
+    if (exerciseId){
+        getExerciseById(exerciseId)
+        .then(exercise => {
+          setExercise(exercise);
+            setIsLoading(false);
+          })
+        } else {
+        setIsLoading(false);
+      }
+    }, 
+    []); */
+          const [exercise, setExercise] = useState({
+         
+         
+            name: "",
+            workoutId: 0,
+            weightUsed: "",
+            restInterval: ""
+          });
+         
+          const history = useHistory();
+         
+          useEffect(() => {
+            getWorkouts()
+          }, []) // eslint-disable-line react-hooks/exhaustive-deps
+         
+         
+         
+          
+          const handleControlledInputChange = (event) => {
+         
+            const newExercise = { ...exercise }
+           
+            newExercise[event.target.id] = event.target.value
+            // update state
+            setExercise(newExercise)
+          }
+         
+          const handleClickSaveExercise = (event) => {
+            event.preventDefault() //Prevents the browser from submitting the form
+         
+            const workoutId = parseInt(exercise.workoutId)
+         
+            if (workoutId === 0) {
+              window.alert("Please select a workout")
+            } else {
+              exercise.workoutId = workoutId
+              addExercise(exercise)
+              .then(() => history.push(`/workouts/detail/${exercise.workoutId}`))
+            }
+          } 
+  
+  
     return (
       <form className="exerciseForm">
           <h2 className="exerciseForm__title">New Exercise</h2>
@@ -101,9 +176,9 @@ export const ExerciseForm = () => {
           </button>
       </form>
     )
-} 
-
-
+  }  
+  
+  
 /* import React, { useContext, useEffect, useState } from "react";
 import { WorkoutContext } from '../workout/WorkoutProvider';
 import { useHistory, useParams } from 'react-router-dom'

@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import { WorkoutContext } from "./WorkoutProvider";
-
 import { useHistory, useParams } from 'react-router-dom';
 import "./Workout.css";
 
@@ -28,7 +27,11 @@ export const WorkoutForm = () => {
     const handleSaveWorkout = () => {
     const user = localStorage.getItem("fitnessforward_user")
 
-      if (workout.name === "" || workout.timestamp === "" || workout.workoutMood === "" || workout.logEntry === "")  {
+    const name = workout.name
+    const workoutMood = workout.workoutMood
+    const logEntry = workout.logEntry
+
+      if (workout.name === "" || workout.timestamp === 0 || workout.workoutMood === "" || workout.logEntry === "")  {
           window.alert("Please fill out the name and address fields")
       } else {
   

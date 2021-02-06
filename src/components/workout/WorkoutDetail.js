@@ -11,7 +11,7 @@ export const WorkoutDetail = () => {
     //const { getExerciseById, removeExercise } = useContext(ExerciseContext)
     const { deleteExercise } = useContext(ExerciseContext)
 
-    const [exercise, setExercise] =useState({})
+    //const [exercise, setExercise] =useState({})
     const [workout, setWorkout] = useState({});
 
     // useParams returns an object based off the key (locationId) for example
@@ -40,8 +40,8 @@ export const WorkoutDetail = () => {
   }
 
   useEffect(() => {
-    //getWorkoutById(workoutId)
-    //.then((response) => setWorkout(response));
+    getWorkoutById(workoutId)
+    .then((response) => setWorkout(response));
     refreshWorkout()
     }, // eslint-disable-next-line
     []);
@@ -54,7 +54,7 @@ export const WorkoutDetail = () => {
         <div className="workout__name">Journal: {workout.logEntry}</div>
         <div className="workout__notes">Mood: {workout.workoutMood}</div>
         <button className='edit__workout' onClick={() => {
-          history.push(`/exercise/edit/${exercise.id}`)
+          history.push(`/workouts/edit/${workout.id}`)
         }}>Edit workout</button>
     
         <button className='deleteBtn' onClick={handleRemoving}>Delete Workout</button>

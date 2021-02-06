@@ -12,9 +12,6 @@ export const NavBar = (props) => {
                 <Link className="navbar__link" to="/workouts">Workouts</Link>
             </li>
 
-            <li className="navbar__item active">
-                <Link className="navbar__link" to="/exercises">exercises</Link>
-            </li>
             
             <li className="navbar__item">
                 <div><a href="https://www.youtube.com/playlist?list=PLdWvFCOAvyr3EWQhtfcEMd3DVM5sJdPL4" target="_blank">Exercise Demenstrations</a></div>

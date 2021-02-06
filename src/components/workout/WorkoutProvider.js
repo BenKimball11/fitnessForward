@@ -7,6 +7,7 @@ export const WorkoutContext = createContext();
 // This component establishes what data can be used.
 export const WorkoutProvider = (props) => {
     const [workouts, setWorkouts] = useState([])
+    const user = localStorage.getItem("fitnessforward_user")
 
     const getWorkouts = () => {
         return fetch("http://localhost:8088/workouts?_embed=exercises")
@@ -31,7 +32,7 @@ export const WorkoutProvider = (props) => {
     };
 
     const updateWorkout = workout => {
-        return fetch(`http://localhost:8088/workouts/${workouts.id}`, {
+        return fetch(`http://localhost:8088/workouts/${workout.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json"

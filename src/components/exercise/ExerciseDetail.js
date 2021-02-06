@@ -1,38 +1,50 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useProps } from "react";
 // useParams grabs parameters of the url to use in the component
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams, Link } from "react-router-dom";
 import { ExerciseContext } from "./ExerciseProvider.js";
 import "./Exercise.css";
 
-export const ExerciseDetail = () => {
-    const { getExerciseById, removeExercise } = useContext(ExerciseContext);
+export const ExerciseDetail = ({exercise, exerciseDelete, refreshWorkout}) => {
+    const { getExerciseById, } = useContext(ExerciseContext);
 
-    // This is one location so it is an object, not an array
-    const [exercise, setExercise, workout ] = useState({});
+    const user = localStorage.getItem("fitnessforward_user")
 
-    // useParams returns an object based off the key (locationId) for example
-    const {exerciseId} = useParams();
-
+  
+    //const {exercise} = useParams();
+   
     const history = useHistory();
 
-    const handleRemoving = () => {
+   /*  const removeExercise = () => {
       removeExercise(exercise.id)
-      .then(() => history.push("/exercises"));
-  };
+     .then(() => history.push(`/workouts`));
+  }; */
 
   useEffect(() => {
-    getExerciseById(exerciseId)
-    .then((response) => setExercise(response));
+    //debugger
+
+    getExerciseById(exercise.id)
+    //.then((response) => setExercise(response));
     }, 
     []);
 
   return (
-    <section className="exercise">
+    <section className="exerciseCard">
       <h3 className="exercise__name">{exercise.name}</h3>
-      <div className="exercise__workout__weightUsed">Workout: {exercise.workout?.name}</div>
-        {/* What's up with the question mark???? See below.*/}
-      <div className="exercise__workout__restInterval">Weight Used: {exercise.weightUsed}</div>
+       {/*  * What's up with the question mark???? See below. */}
+      <div className="exercise__workout__weightUsed">Weight Used: {exercise.weightUsed}</div>
+
       <div className="exercise__workout__restInterval">Rest Interval: {exercise.restInterval}</div>
+
+
+      <button className="deleteBtn"
+                    onClick={() => exerciseDelete(exercise.id)}>
+                    Delete exercise 
+          </button>
+
+      {/* <button onClick={removeExercise}>Remove Exercise</button> */}
+      <button onClick={() => {
+          history.push(`/exercises/detail/${exercise.id}`)
+      }}>Edit</button>
     </section>
   );
-};
+}; 

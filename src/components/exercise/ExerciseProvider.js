@@ -1,12 +1,11 @@
 import React, { useState, createContext } from "react"
 
-// The context is imported and used by individual components that need data
 // createContext() makes an object with properties
 export const ExerciseContext = createContext();
 
 // This component establishes what data can be used.
 export const ExerciseProvider = (props) => {
-    const [exercises, setExercise] = useState([])
+    const [exercise, setExercise] = useState([])
 
     const getExercise = () => {
         return fetch("http://localhost:8088/exercises?_embed=workouts")
@@ -41,8 +40,8 @@ export const ExerciseProvider = (props) => {
           .then(getExercise);
       };
 
-    const removeExercise = exercisesId => {
-        return fetch(`http://localhost:8088/exercises/${exercisesId}`, {
+    const deleteExercise= exerciseId => {
+        return fetch(`http://localhost:8088/exercises/${exerciseId}`, {
             method: "DELETE"
         })
         .then(getExercise);
@@ -52,7 +51,7 @@ export const ExerciseProvider = (props) => {
     // Provider = Interface that other components can use in order to gain access
     // to what the provider holds.
     return (
-        <ExerciseContext.Provider value={{exercises, getExercise, getExerciseById, addExercise, updateExercise, removeExercise}}>
+        <ExerciseContext.Provider value={{exercise, getExercise, getExerciseById, addExercise, updateExercise, deleteExercise}}>
             {props.children}
         </ExerciseContext.Provider>
     );

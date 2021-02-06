@@ -4,9 +4,21 @@
     justify-content: space-between;
   }
   
-  .exercise {
+  .exercises {
       flex-basis: 28%;
       margin: 1em;
       padding: 1em;
       border: 1px solid goldenrod;
+  }
+
+  .exerciseCards{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .exerciseCard{
+    flex-basis: 28%;
+    margin: 1em;
+    padding: 1em;
+    border: 1px solid goldenrod;
   }

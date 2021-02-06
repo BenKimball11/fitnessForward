@@ -8,7 +8,7 @@ import { ExerciseDetail } from "../exercise/ExerciseDetail.js"
 
 export const WorkoutDetail = () => {
     const { getWorkoutById, removeWorkout } = useContext(WorkoutContext);
-    const { getExerciseById, removeExercise } = useContext(ExerciseContext)
+    //const { getExerciseById, removeExercise } = useContext(ExerciseContext)
     const { deleteExercise } = useContext(ExerciseContext)
 
     const [exercise, setExercise] =useState({})
@@ -40,8 +40,9 @@ export const WorkoutDetail = () => {
   }
 
   useEffect(() => {
-    getWorkoutById(workoutId)
-    .then((response) => setWorkout(response));
+    //getWorkoutById(workoutId)
+    //.then((response) => setWorkout(response));
+    refreshWorkout()
     }, // eslint-disable-next-line
     []);
 

@@ -4,31 +4,26 @@ import { useHistory, useParams, Link } from "react-router-dom";
 import { ExerciseContext } from "./ExerciseProvider.js";
 import "./Exercise.css";
 
-export const ExerciseDetail = ({exercise}) => {
-    const { getExerciseById, removeExercise, } = useContext(ExerciseContext);
+export const ExerciseDetail = ({exercise, exerciseDelete, refreshWorkout}) => {
+    const { getExerciseById, } = useContext(ExerciseContext);
 
     const user = localStorage.getItem("fitnessforward_user")
 
-    // This is one location so it is an object, not an array
-    // const [exercise, setExercise, workoutId ] = useState({});
-    // This is one location so it is an object, not an array
-    // const props = useProps({});
-
-    // useParams returns an object based off the key (locationId) for example
+  
     //const {exercise} = useParams();
-    /* const [key, exercise ] = useState({}); */
+   
     const history = useHistory();
 
-    const handleRemoving = () => {
+   /*  const removeExercise = () => {
       removeExercise(exercise.id)
-      .then(() => history.push(`/workouts`));
-  };
+     .then(() => history.push(`/workouts`));
+  }; */
 
   useEffect(() => {
     //debugger
-    // console.log(ExerciseContext.exercise)
-    // getExerciseById(exercise.id)
-    // .then((response) => setExercise(response));
+
+    getExerciseById(exercise.id)
+    //.then((response) => setExercise(response));
     }, 
     []);
 
@@ -40,9 +35,15 @@ export const ExerciseDetail = ({exercise}) => {
 
       <div className="exercise__workout__restInterval">Rest Interval: {exercise.restInterval}</div>
 
-      <button onClick={handleRemoving}>Remove Exercise</button>
+
+      <button className="deleteBtn"
+                    onClick={() => exerciseDelete(exercise.id)}>
+                    Delete exercise 
+          </button>
+
+      {/* <button onClick={removeExercise}>Remove Exercise</button> */}
       <button onClick={() => {
-          history.push(`/exercises/edit/${exercise.id}`)
+          history.push(`/exercises/detail/${exercise.id}`)
       }}>Edit</button>
     </section>
   );

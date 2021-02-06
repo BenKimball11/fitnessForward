@@ -30,7 +30,7 @@ export const ExerciseProvider = (props) => {
     };
 
     const updateExercise = exercise => {
-        return fetch(`http://localhost:8088/exercise/${exercise.id}`, {
+        return fetch(`http://localhost:8088/exercises/${exercise.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json"
@@ -40,8 +40,8 @@ export const ExerciseProvider = (props) => {
           .then(getExercise);
       };
 
-    const removeExercise = exercisesId => {
-        return fetch(`http://localhost:8088/exercise/${exercisesId}`, {
+    const deleteExercise= exerciseId => {
+        return fetch(`http://localhost:8088/exercises/${exerciseId}`, {
             method: "DELETE"
         })
         .then(getExercise);
@@ -51,7 +51,7 @@ export const ExerciseProvider = (props) => {
     // Provider = Interface that other components can use in order to gain access
     // to what the provider holds.
     return (
-        <ExerciseContext.Provider value={{exercise, getExercise, getExerciseById, addExercise, updateExercise, removeExercise}}>
+        <ExerciseContext.Provider value={{exercise, getExercise, getExerciseById, addExercise, updateExercise, deleteExercise}}>
             {props.children}
         </ExerciseContext.Provider>
     );

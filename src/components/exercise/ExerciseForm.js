@@ -6,7 +6,7 @@ import { useHistory, useParams } from 'react-router-dom';
 
 export const ExerciseForm = () => {
     const { addExercise } = useContext(ExerciseContext)
-    const { workouts, getWorkouts, updateExercise } = useContext(WorkoutContext)
+    const { workouts, getWorkouts, updateExercise, deleteExercise } = useContext(WorkoutContext)
     const user = localStorage.getItem("fitnessforward_user")
     
 

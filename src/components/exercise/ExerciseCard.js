@@ -2,14 +2,14 @@ import React from "react"
 import "./Exercise.css"
 import { Link } from "react-router-dom"
 
-export const ExerciseCard = ({exercise, workout}) => {
+export const ExerciseCard = ({exercises, workout}) => {
     return (
-    <section className="exercise">
+    <section className="exercises">
         <h3 className="exercise__name">         
-        <Link to={`/exercises/detail/${exercise.id}`}>
-          { exercise.name }
+        <Link to={`/exercises/detail/${exercises.id}`}>
+          { exercises.name }
         </Link>
         </h3>
-        <div className="exercise__workout">{exercise.name}</div>
+        <div className="exercise__workout">{exercises.name}</div>
     </section>
 )}

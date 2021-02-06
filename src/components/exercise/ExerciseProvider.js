@@ -1,12 +1,11 @@
 import React, { useState, createContext } from "react"
 
-// The context is imported and used by individual components that need data
 // createContext() makes an object with properties
 export const ExerciseContext = createContext();
 
 // This component establishes what data can be used.
 export const ExerciseProvider = (props) => {
-    const [exercises, setExercise] = useState([])
+    const [exercise, setExercise] = useState([])
 
     const getExercise = () => {
         return fetch("http://localhost:8088/exercises?_embed=workouts")
@@ -31,7 +30,7 @@ export const ExerciseProvider = (props) => {
     };
 
     const updateExercise = exercise => {
-        return fetch(`http://localhost:8088/exercises/${exercise.id}`, {
+        return fetch(`http://localhost:8088/exercise/${exercise.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json"
@@ -42,7 +41,7 @@ export const ExerciseProvider = (props) => {
       };
 
     const removeExercise = exercisesId => {
-        return fetch(`http://localhost:8088/exercises/${exercisesId}`, {
+        return fetch(`http://localhost:8088/exercise/${exercisesId}`, {
             method: "DELETE"
         })
         .then(getExercise);
@@ -52,7 +51,7 @@ export const ExerciseProvider = (props) => {
     // Provider = Interface that other components can use in order to gain access
     // to what the provider holds.
     return (
-        <ExerciseContext.Provider value={{exercises, getExercise, getExerciseById, addExercise, updateExercise, removeExercise}}>
+        <ExerciseContext.Provider value={{exercise, getExercise, getExerciseById, addExercise, updateExercise, removeExercise}}>
             {props.children}
         </ExerciseContext.Provider>
     );

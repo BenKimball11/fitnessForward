@@ -8,10 +8,8 @@ import { ExerciseDetail } from "../exercise/ExerciseDetail.js"
 
 export const WorkoutDetail = () => {
     const { getWorkoutById, removeWorkout } = useContext(WorkoutContext);
-    //const { getExerciseById, removeExercise } = useContext(ExerciseContext)
     const { deleteExercise } = useContext(ExerciseContext)
 
-    //const [exercise, setExercise] =useState({})
     const [workout, setWorkout] = useState({});
 
     // useParams returns an object based off the key (locationId) for example
@@ -63,36 +61,10 @@ export const WorkoutDetail = () => {
           {
             workout.exercises?.map(e => {
               e.workout = workout
-              console.log(e)
               return <ExerciseDetail key={e.id} exercise={e} exerciseDelete={exerciseDelete} refreshWorkout={refreshWorkout} />
             })}
         </div>
       </section>
     
     )
-  /* return (
-      
-      <section className="workout">
-        <button className="workout__removeButton" onClick={handleRemoving}> Remove workout</button>
-        <button onClick={() => {
-            history.push(`/workouts/edit/${workout.id}`)
-        }}>Edit</button>
-        <h3 className="workout__name">{workout.name}</h3>
-        <div className="workout__date">Date: {workout.timestamp}</div>
-        {/* What's up with the question mark???? See below.*
-        <div className="workout__entry">Entry: {workout.logEntry}</div>
-        <div className="workout__mood">Mood: {workout.workoutMood}</div>
-        <div className="workout__exercises">
-        <button onClick={() => {history.push("/exercises/create")}}>
-                    Add Exercise
-        </button> 
-          <h4 className="workout__exercises__header">Exercises</h4>
-          <div className="workout__exercises__names">
-            {workout.exercises?.map(exercise => exercise.name).join(", ")}
-          </div>
-      </div>
-      </section>
-    )
-}; */
-
 } 

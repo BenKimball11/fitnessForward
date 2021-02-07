@@ -27,9 +27,6 @@ export const WorkoutForm = () => {
     const handleSaveWorkout = () => {
     const user = localStorage.getItem("fitnessforward_user")
 
-    const name = workout.name
-    const workoutMood = workout.workoutMood
-    const logEntry = workout.logEntry
 
       if (workout.name === "" || workout.timestamp === 0 || workout.workoutMood === "" || workout.logEntry === "")  {
           window.alert("Please fill out the name and address fields")

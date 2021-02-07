@@ -11,6 +11,6 @@ export const ExerciseCard = ({exercise, workout}) => {
         </Link>
         </h3>
         <div className="exercise__workout">{exercise.name}</div>
-        <button className='edit'> <Link to={`/exercises/edit/${exercise.id}`}>Edit</Link> </button>
+        <button className='edit'> <Link to={`/exercises/edit/${exercise.workoutId}`}>Edit</Link> </button>
     </section>
 )}

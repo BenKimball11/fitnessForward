@@ -6,18 +6,18 @@ import "./Exercise.css";
 
 export const ExerciseDetail = ({ exercise , exerciseDelete, refreshExercise }) => {
  
-    const { updateExercise} = useContext
+    //const { updateExercise} = useContext
     const user = localStorage.getItem("fitnessforward_user")
    
   
-    const {exerciseId} = useParams();
+    //const {exerciseId} = useParams();
    
     const history = useHistory();
  
-     const removeExercise = () => {
+  /*    const removeExercise = () => {
       removeExercise(exercise.id)
      .then(() => history.push(`/workouts`));
-  }; 
+  };  */
     
   return (
     <section className="exerciseCard">
@@ -32,7 +32,10 @@ export const ExerciseDetail = ({ exercise , exerciseDelete, refreshExercise }) =
                     Remove exercise 
           </button>
 
-          <button className='edit'> <Link to={`/exercises/edit/${exercise.id}`}>Edit</Link> </button>
+          <button className='edit' onClick={() => {
+          history.push(`/exercises/edit/${exercise.id}`)
+        }}>Edit</button>
+
     </section>
   );
   }

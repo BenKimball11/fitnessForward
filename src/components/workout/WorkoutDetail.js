@@ -56,7 +56,11 @@ export const WorkoutDetail = () => {
         }}>Edit workout</button>
     
         <button className='deleteBtn' onClick={handleRemoving}>Delete Workout</button>
-        <button className="exerciseItem"> <Link to={`../../exercises/create`}>Add New exercise</Link></button>
+        
+        <button className='add__workout' onClick={() => {
+          history.push(`/exercises/create/`)
+        }}>Add New Exercise</button>
+
         <div className="exerciseCards">
           {
             workout.exercises?.map(e => {

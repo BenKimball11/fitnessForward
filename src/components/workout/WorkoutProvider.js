@@ -7,20 +7,21 @@ export const WorkoutContext = createContext();
 // This component establishes what data can be used.
 export const WorkoutProvider = (props) => {
     const [workouts, setWorkouts] = useState([])
+    const user = localStorage.getItem("fitnessforward_user")
 
     const getWorkouts = () => {
-        return fetch("http://localhost:8088/workouts?_embed=exercises")
+        return fetch(`http://localhost:8088/workouts/?userId=${user}&_embed=exercises`)
         .then(res => res.json())
         .then(setWorkouts);
-    };
+    }
 
     const getWorkoutById = (id) => {
         return fetch(`http://localhost:8088/workouts/${id}?_embed=exercises`)
             .then(res => res.json());
-    };
+    }
 
     const addWorkout = workoutObj => {
-        return fetch("http://localhost:8088/workouts", {
+        return fetch("http://localhost:8088/workouts/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -28,10 +29,10 @@ export const WorkoutProvider = (props) => {
             body: JSON.stringify(workoutObj)
         })
         .then(getWorkouts);
-    };
+    }
 
     const updateWorkout = workout => {
-        return fetch(`http://localhost:8088/workouts/${workouts.id}`, {
+        return fetch(`http://localhost:8088/workouts/${workout.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json"
@@ -39,14 +40,14 @@ export const WorkoutProvider = (props) => {
           body: JSON.stringify(workout)
         })
           .then(getWorkouts);
-      };
+      }
 
     const removeWorkout = workoutId => {
         return fetch(`http://localhost:8088/workouts/${workoutId}`, {
             method: "DELETE"
         })
         .then(getWorkouts);
-    };
+    }
 
     // Subcomponent that renders a subset of itself called a Provider
     // Provider = Interface that other components can use in order to gain access
@@ -55,5 +56,5 @@ export const WorkoutProvider = (props) => {
         <WorkoutContext.Provider value={{workouts, getWorkouts, getWorkoutById, addWorkout, updateWorkout, removeWorkout}}>
             {props.children}
         </WorkoutContext.Provider>
-    );
-};
+    )
+}

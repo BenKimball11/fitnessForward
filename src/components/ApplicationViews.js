@@ -43,10 +43,10 @@ export const ApplicationViews = () => {
                 <Route exact path="/exercises">
                     <ExerciseList />
                 </Route>
-                <Route exact path="/exercises/detail/:exercisesId(\d+)">
+                <Route exact path="/exercises/detail/:exerciseId(\d+)">
                     <ExerciseDetail />
                 </Route>
-                <Route path="/exercises/edit/:exercisesId(\d+)">
+                <Route path="/exercises/edit/:exerciseId(\d+)">
                     <ExerciseForm />
                 </Route>
 

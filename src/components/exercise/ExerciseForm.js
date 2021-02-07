@@ -5,7 +5,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import "./Exercise.css";
 
 
-export const ExerciseForm = () => {
+export const ExerciseForm = (workout) => {
     const { addExercise, getExerciseById, updateExercise } = useContext(ExerciseContext);
     const [exercise, setExercise] = useState({})
          
@@ -30,31 +30,31 @@ export const ExerciseForm = () => {
     const handleSaveExercise = () => {
     const user = localStorage.getItem("fitnessforward_user")
 
-    if (exercise.workoutId === "" || exercise.name === "" || exercise.weightUsed === "" || exercise.restInterval === "")  {
+    if (exercise.workoutId === 0 || exercise.name === "" || exercise.weightUsed === "" || exercise.restInterval === "")  {
       window.alert("Please fill out the fields")
     } else {
       setIsLoading(true);
       if (exerciseId){
         updateExercise({
           id: parseInt(exercise.id),
-          workoutId:exercise.workoutId,
+          workoutId:parseInt(exercise.workoutId),
           userId: parseInt(user),
           name: exercise.name,
           weightUsed: exercise.weightUsed,
           restInterval: exercise.restInterval,
         })
-        .then(() => history.push(`/workouts`))
+        .then(() => history.push(`/workouts/detail/${exercise.workoutId}`))
       }else {
-        
+        //setIsLoading(true);
         addExercise({
           id: parseInt(exercise.id),
           userId: parseInt(user),
-          workoutId:exercise.workoutId,
+          workoutId:parseInt(exercise.workoutId),
           name: exercise.name,
           weightUsed: exercise.weightUsed,
           restInterval: exercise.restInterval,
         })
-        .then(() => history.push("/workouts"))
+        .then(() => history.push(`/workouts/detail/${exercise.workoutId}`))
       }
     }
   }

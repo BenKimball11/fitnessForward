@@ -21,6 +21,7 @@ export const WorkoutDetail = () => {
       removeWorkout(workout.id)
       .then(() => history.push("/workouts"));
   };
+  //refreshes page whenever a change is made
   const refreshWorkout = () => {
     getWorkoutById(workoutId)
       .then((response) => {
@@ -48,7 +49,8 @@ export const WorkoutDetail = () => {
       <section className="workout">
          <button className="backBtn" onClick={() => history.goBack()}>Back</button>
         <h3 className="workout__name">{workout.name}</h3>
-        <div className="workout__name">Date: {workout.timestamp}</div>
+        {/* <div className="workout__name">Date: {workout.timestamp}</div> */}
+        <div className="workout__name">Date: { new Date(workout.timestamp).toLocaleDateString('en-US')  }</div>
         <div className="workout__name">Journal: {workout.logEntry}</div>
         <div className="workout__notes">Mood: {workout.workoutMood}</div>
         <button className='edit__workout' onClick={() => {
@@ -58,7 +60,7 @@ export const WorkoutDetail = () => {
         <button className='deleteBtn' onClick={handleRemoving}>Delete Workout</button>
         
         <button className='add__workout' onClick={() => {
-          history.push(`/exercises/create/`)
+          history.push(`/exercises/create/${workout.id}`)
         }}>Add New Exercise</button>
 
         <div className="exerciseCards">

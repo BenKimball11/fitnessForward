@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react"
+import React, { useContext, useEffect, useParams } from "react"
 import { WorkoutContext } from "./WorkoutProvider"
 import { WorkoutCard } from "./WorkoutCard"
 import "./Workout.css"
@@ -8,6 +8,7 @@ import { useHistory } from "react-router-dom"
 export const WorkoutList = () => {
   // This state changes when `getAnimals()` is invoked below
   const { workouts, getWorkouts } = useContext(WorkoutContext)
+  //const {exerciseId, workoutId} = useParams();
 
   //useEffect - reach out to the world for something
   useEffect(() => {

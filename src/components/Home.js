@@ -4,7 +4,7 @@ import React from "react";
 export const Home = () => (
     <>
         <h2>Fitness Forward</h2>
-        <small>Loving care when you're not there.</small>
+       {/*  <small>Loving care when you're not there.</small> */}
 
       {/*   <PropsAndState yourName={"Brenda"} /> */}
     </>

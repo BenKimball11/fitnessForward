@@ -4,7 +4,7 @@ import { useHistory, useParams, Link } from "react-router-dom";
 import { ExerciseContext } from "./ExerciseProvider.js";
 import "./Exercise.css";
 
-export const ExerciseDetail = ({ exercise , exerciseDelete, refreshExercise }) => {
+export const ExerciseDetail = ({ exercise , exerciseDelete }) => {
  
     //const { updateExercise} = useContext
     const user = localStorage.getItem("fitnessforward_user")

@@ -22,7 +22,7 @@ export const Login = props => {
         existingUserCheck()
             .then(exists => {
                 if (exists) {
-                    localStorage.setItem("fitnessforward_users", exists.id)
+                    localStorage.setItem("fitnessforward_user", exists.id)
                     history.push("/workouts")
                 } else {
                     existDialog.current.showModal()

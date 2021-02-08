@@ -10,10 +10,10 @@ export const ExerciseForm = (workout) => {
     const [exercise, setExercise] = useState({})
          
 
-    const { workouts, getWorkouts,  deleteExercise } = useContext(WorkoutContext)
+    const { workouts, getWorkouts,  deleteExercise, getWorkoutById } = useContext(WorkoutContext)
     
       const [isLoading, setIsLoading] = useState(true);
-      const {exerciseId} = useParams();
+      const {exerciseId, workoutId} = useParams();
       
       const history = useHistory();
       
@@ -44,17 +44,18 @@ export const ExerciseForm = (workout) => {
           restInterval: exercise.restInterval,
         })
         .then(() => history.push(`/workouts/detail/${exercise.workoutId}`))
-      }else {
-        //setIsLoading(true);
+      }else{
+        
+        setIsLoading(true);
         addExercise({
           id: parseInt(exercise.id),
           userId: parseInt(user),
-          workoutId:parseInt(exercise.workoutId),
+          workoutId:parseInt(workoutId),
           name: exercise.name,
           weightUsed: exercise.weightUsed,
           restInterval: exercise.restInterval,
         })
-        .then(() => history.push(`/workouts/detail/${exercise.workoutId}`))
+        .then(() => history.push(`/workouts/detail/${workoutId}`))
       }
     }
   }
@@ -78,8 +79,8 @@ export const ExerciseForm = (workout) => {
 
     return (
       <form className="exerciseForm">
-        <h2 className="exerciseForm__title">{exerciseId ? <>Edit exercise</> : <>New exercise</>}</h2>
-        <fieldset>
+         <h2 className="exerciseForm__title">{exerciseId ? <>Edit exercise</> : <>New exercise</>}</h2>
+       {/*   <fieldset>
         <div className="form-group">
                   <label htmlFor="workout">Assign to workout: </label>
                   <select defaultValue={exercise.workoutId} name="workoutId" id="workoutId" className="form-control" onChange={handleControlledInputChange}>
@@ -91,18 +92,18 @@ export const ExerciseForm = (workout) => {
                       ))}
                   </select>
               </div>
-          </fieldset>
+          </fieldset> */}   
           <fieldset>
               <div className="form-group">
                   <label htmlFor="name">Exercise:</label>
-                  <input type="text" id="name" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Ex: deadlift" value={exercise.name}/>
+                  <input defaultValue={exercise.name} type="text" id="name" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Ex: deadlift" value={exercise.name}/>
               </div>
           </fieldset>
         
           <fieldset>
               <div className="form-group">
                   <label htmlFor="weightUsed">Weight Used:</label>
-                  <input type="text" id="weightUsed" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Ex: 135 lbs" value={exercise.weightUsed}/>
+                  <input defaultValue={exercise.weightUsed} type="text" id="weightUsed" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Ex: 135 lbs" value={exercise.weightUsed}/>
               </div>
              
           </fieldset>
@@ -110,7 +111,7 @@ export const ExerciseForm = (workout) => {
           <fieldset>
               <div className="form-group">
                   <label htmlFor="restInterval">Rest Interval:</label>
-                  <input type="text" id="restInterval" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="60 seconds" value={exercise.restInterval}/>
+                  <input defaultValue={exercise.restInterval?.workoutId} type="text" id="restInterval" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="60 seconds" value={exercise.restInterval}/>
               </div>
              
           </fieldset>

@@ -1,6 +1,8 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import "./NavBar.css"
+import "../auth/Login";
+import { Logout } from "../auth/Logout";
 
 export const NavBar = (props) => {
     return (
@@ -15,6 +17,9 @@ export const NavBar = (props) => {
             <li className="navbar__item">
                 <div><a href="https://www.youtube.com/playlist?list=PLdWvFCOAvyr3EWQhtfcEMd3DVM5sJdPL4" target="_blank">Exercise Demenstrations</a></div>
             </li> 
+            <li className="navbar__item">
+                <button className="logOut" onClick={Logout()}>Logout</button>
+            </li>
  
         </ul>
     )

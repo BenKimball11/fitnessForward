@@ -1,29 +1,31 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ExerciseContext } from "./ExerciseProvider";
-import { WorkoutContext } from "../workout/WorkoutProvider"
 import { useHistory, useParams } from 'react-router-dom';
 import "./Exercise.css";
 
 
-export const ExerciseForm = (workout) => {
+export const ExerciseForm = () => {
     const { addExercise, getExerciseById, updateExercise } = useContext(ExerciseContext);
+    /* useState declares the default state of the functions.
+    First thing in the array (workout) is always the current state
+    second thing in the array (setWorkout) allows you to update the current state   */
     const [exercise, setExercise] = useState({})
          
 
-    const { workouts, getWorkouts,  deleteExercise, getWorkoutById } = useContext(WorkoutContext)
     
-      const [isLoading, setIsLoading] = useState(true);
-      const {exerciseId, workoutId} = useParams();
+      //const [isLoading, setIsLoading] = useState(true)
+      const {exerciseId, workoutId} = useParams()
       
-      const history = useHistory();
+      const history = useHistory()
       
       const handleControlledInputChange = (event) => {
+        //When changing a state object or array,
+        //always create a copy make changes, and then set state.
         const newExercise = { ...exercise }
-        
-        
+        //workout is an object with properties.
+        //set the property to the new value
         newExercise[event.target.id] = event.target.value
-        
-        
+        //update state
         setExercise(newExercise)
       }
     
@@ -33,7 +35,7 @@ export const ExerciseForm = (workout) => {
     if (exercise.workoutId === 0 || exercise.name === "" || exercise.weightUsed === "" || exercise.restInterval === "")  {
       window.alert("Please fill out the fields")
     } else {
-      setIsLoading(true);
+      //setIsLoading(true);
       if (exerciseId){
         updateExercise({
           id: parseInt(exercise.id),
@@ -46,7 +48,7 @@ export const ExerciseForm = (workout) => {
         .then(() => history.push(`/workouts/detail/${exercise.workoutId}`))
       }else{
         
-        setIsLoading(true);
+       // setIsLoading(true);
         addExercise({
           id: parseInt(exercise.id),
           userId: parseInt(user),
@@ -60,19 +62,19 @@ export const ExerciseForm = (workout) => {
     }
   }
 
+  // Populates the forms with existing data if there is any
     useEffect(() => {
-
         if (exerciseId){
           getExerciseById(exerciseId)
           .then(exercise => {
-              setExercise(exercise);
-              setIsLoading(false);
+              setExercise(exercise)
+             // setIsLoading(false)
           })
         } else {
-          setIsLoading(false);
+          //setIsLoading(false)
         }
     }, 
-    []);
+    [])
 
     //since state controlls this component, we no longer need
     //useRef(null) or ref
@@ -80,19 +82,6 @@ export const ExerciseForm = (workout) => {
     return (
       <form className="exerciseForm">
          <h2 className="exerciseForm__title">{exerciseId ? <>Edit exercise</> : <>New exercise</>}</h2>
-       {/*   <fieldset>
-        <div className="form-group">
-                  <label htmlFor="workout">Assign to workout: </label>
-                  <select defaultValue={exercise.workoutId} name="workoutId" id="workoutId" className="form-control" onChange={handleControlledInputChange}>
-                      <option value="0">Select a workout</option>
-                      {workouts.map(w => (
-                          <option key={w.id} value={w.id}>
-                              {w.name}
-                          </option>
-                      ))}
-                  </select>
-              </div>
-          </fieldset> */}   
           <fieldset>
               <div className="form-group">
                   <label htmlFor="name">Exercise:</label>
@@ -116,7 +105,7 @@ export const ExerciseForm = (workout) => {
              
           </fieldset>
           <button className="btn btn-primary"
-          disabled={isLoading}
+          //disabled={isLoading}
           onClick={event => {
             event.preventDefault(); // Prevent browser from submitting the form and refreshing the page
             handleSaveExercise();

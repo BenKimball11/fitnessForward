@@ -1,7 +1,6 @@
 import React from "react"
 import "./Workout.css"
 import { Link } from "react-router-dom"
-//import "bootstrap/dist/css/bootstrap.min.css"
 
 export const WorkoutCard = ({workout}) => {
     return (

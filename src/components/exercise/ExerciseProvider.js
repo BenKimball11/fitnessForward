@@ -8,12 +8,14 @@ export const ExerciseProvider = (props) => {
     const [exercise, setExercise] = useState([])
 
     const getExercise = () => {
+        //embed lists of exercises that are associated with the workout
         return fetch("http://localhost:8088/exercises?_embed=workouts")
         .then(res => res.json())
         .then(setExercise);
     };
 
     const getExerciseById = (id) => {
+        //embed lists of exercises that are associated with the workout
         return fetch(`http://localhost:8088/exercises/${id}?_embed=workouts`)
             .then(res => res.json());
     };

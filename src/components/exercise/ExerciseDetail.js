@@ -1,10 +1,12 @@
-import React, { useContext, useEffect, useState, useProps } from "react";
+//import React, { useContext } from "react";
+//import { ExerciseContext } from "./ExerciseProvider"
 // useParams grabs parameters of the url to use in the component
 import { useHistory } from "react-router-dom";
 import "./Exercise.css";
-
-export const ExerciseDetail = ({ exercise , exerciseDelete }) => {
- 
+//The expression can be a React variable, or property, or any other valid JavaScript expression. 
+//JSX will execute the expression and return the result:
+export const ExerciseDetail = ( { exercise , exerciseDelete } ) => {
+ //const { exercise , exerciseDelete } =useContext(ExerciseContext)
     //const user = localStorage.getItem("fitnessforward_user") 
     const history = useHistory();
 
@@ -26,5 +28,5 @@ export const ExerciseDetail = ({ exercise , exerciseDelete }) => {
         }}>Edit</button>
 
     </section>
-  );
+  )
   }

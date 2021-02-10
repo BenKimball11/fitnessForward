@@ -1,4 +1,4 @@
-import React from "react"
+/* import React from "react"
 import "./Exercise.css"
 import { Link } from "react-router-dom"
 
@@ -13,4 +13,4 @@ export const ExerciseCard = ({exercise, workout}) => {
         <div className="exercise__workout">{exercise.name}</div>
         <button className='edit'> <Link to={`/exercises/edit/${exercise.workoutId}`}>Edit</Link> </button>
     </section>
-)}
+)} */

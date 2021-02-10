@@ -7,15 +7,18 @@ export const WorkoutContext = createContext();
 // This component establishes what data can be used.
 export const WorkoutProvider = (props) => {
     const [workouts, setWorkouts] = useState([])
+    //local storage
     const user = localStorage.getItem("fitnessforward_user")
 
     const getWorkouts = () => {
+        //embed lists of exercises that are associated with the workout
         return fetch(`http://localhost:8088/workouts/?userId=${user}&_embed=exercises`)
         .then(res => res.json())
         .then(setWorkouts);
     }
 
     const getWorkoutById = (id) => {
+        //embed lists of exercises that are associated with the workout
         return fetch(`http://localhost:8088/workouts/${id}?_embed=exercises`)
             .then(res => res.json());
     }

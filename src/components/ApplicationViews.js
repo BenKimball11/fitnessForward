@@ -15,20 +15,21 @@ import { ExerciseDetail } from "./exercise/ExerciseDetail"
 export const ApplicationViews = () => {
     return (
         <>
-            {/* Render the location list when http://localhost:3000/ */}
             <Route exact path="/">
                 <Home />
             </Route>
 
-            {/* Render the animal list when http://localhost:3000/animals */}
-            <WorkoutProvider>        
+            {/* Render the workout list when http://localhost:3000/workouts */}
+        <WorkoutProvider>        
 
-                <ExerciseProvider>
+            <ExerciseProvider>
                     
                         <Route exact path="/workouts">
                             <WorkoutList />
                         </Route> 
-
+{/*You put :workoutId(\d+) at the end of the URL to serve as a variable to hold the actual value that will be in the URL.
+ For example, if the URL is http://localhost:3000/workouts/detail/3, the value of 3 will be stored in that variable named workoutId. 
+The variable can then be accessed and used inside AnimalWorkout. */}
                         <Route exact path="/workouts/detail/:workoutId(\d+)">
                             <WorkoutDetail />
                         </Route>

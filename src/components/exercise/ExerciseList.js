@@ -2,20 +2,15 @@ import React, { useContext, useEffect } from "react"
 import { useHistory } from "react-router-dom"
 import { ExerciseCard } from "./ExerciseCard";
 import { ExerciseContext } from "./ExerciseProvider";
-import { WorkoutContext } from "../workout/WorkoutProvider"
+
 export const ExerciseList = () => {
-
-  const { workout, getWorkout } = useContext(WorkoutContext)
   const { exercise, getExercise } = useContext(ExerciseContext)
-
-
+  
   useEffect(() => {
     getExercise()
   }, [])
 
   const history = useHistory()
-
-
 
   return (
     <section className="exercises">
@@ -28,8 +23,9 @@ export const ExerciseList = () => {
           </button>
       <div className="exerciseCards">
         {
-          exercise.map(e => {
-            return <ExerciseCard key={e.id} exercises={e} />
+          //renders list of workouts from WorkoutCard component
+          exercise.map(exercise => {
+            return <ExerciseCard key={exercise.id} exercises={exercise} />
           })
         }
 

@@ -6,6 +6,10 @@ import "./Workout.css";
 
 export const WorkoutForm = () => {
     const { addWorkout, getWorkoutById, updateWorkout } = useContext(WorkoutContext);
+
+     /* useState declares the default state of the functions.
+    First thing in the array (workout) is always the current state
+    second thing in the array (setWorkout) allows you to update the current state   */
     const [workout, setWorkout] = useState({})
 
     
@@ -15,12 +19,13 @@ export const WorkoutForm = () => {
       const history = useHistory();
       
       const handleControlledInputChange = (event) => {
+        //When changing a state object or array,
+      //always create a copy make changes, and then set state.
         const newWorkout = { ...workout }
-        
-        
+        //workout is an object with properties.
+      //set the property to the new value
         newWorkout[event.target.id] = event.target.value
-        
-        
+        //update state
         setWorkout(newWorkout)
       }
     
@@ -28,11 +33,11 @@ export const WorkoutForm = () => {
     const user = localStorage.getItem("fitnessforward_user")
 
 
-      if (workout.name === "" || workout.timestamp === 0 || workout.workoutMood === "" || workout.logEntry === "")  {
-          window.alert("Please fill out the name and address fields")
+      if (workout.name === "" || workout.timestamp === 0 || workout.workoutMood === "" || workout.logEntry=== "")  {
+          window.alert("Please fill out the fields")
       } else {
   
-        setIsLoading(true);
+       setIsLoading(true);
         if (workoutId){
           updateWorkout({
             id: parseInt(workout.id),
@@ -58,8 +63,8 @@ export const WorkoutForm = () => {
       }
     }
 
+    // Populates the forms with existing data if there is any
     useEffect(() => {
-
         if (workoutId){
           getWorkoutById(workoutId)
           .then(workout => {
@@ -84,7 +89,7 @@ export const WorkoutForm = () => {
             <input type="text" id="name" name="name" required autoFocus className="form-control"
             placeholder="workout name"
             onChange={handleControlledInputChange}
-            defaultValue={workout.name}/>
+            value={workout.name}/>
           </div>
         </fieldset>
         <fieldset>
@@ -93,7 +98,7 @@ export const WorkoutForm = () => {
             <input type="date" id="workoutDate" name="workoutDate" required autoFocus className="form-control"
             placeholder="Workout Date"
             onChange={handleControlledInputChange}
-            value={workout.Date}/>
+            defaultValue={workout.Date}/>
           </div>
         </fieldset>
         <fieldset>

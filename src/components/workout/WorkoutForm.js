@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { WorkoutContext } from "./WorkoutProvider";
 import { useHistory, useParams } from 'react-router-dom';
 import "./Workout.css";
+import 'react-datepicker/dist/react-datepicker.css'
+import DatePicker from 'react'
 
 
 export const WorkoutForm = () => {
@@ -10,7 +12,10 @@ export const WorkoutForm = () => {
      /* useState declares the default state of the functions.
     First thing in the array (workout) is always the current state
     second thing in the array (setWorkout) allows you to update the current state   */
-    const [workout, setWorkout] = useState({})
+    const [workout, setWorkout] = useState({
+       name: "",
+      date: "" 
+    })
 
     
       const [isLoading, setIsLoading] = useState(true);
@@ -31,9 +36,12 @@ export const WorkoutForm = () => {
     
     const handleSaveWorkout = () => {
     const user = localStorage.getItem("fitnessforward_user")
+    const name = workout.name
+    const timestamp = workout.date
+    
+    
 
-
-      if (workout.name === "" || workout.timestamp === 0 || workout.workoutMood === "" || workout.logEntry=== "")  {
+      if (workout.name === "" || workout.timestamp === "" || workout.workoutMood === "" || workout.logEntry=== "")  {
           window.alert("Please fill out the fields")
       } else {
   
@@ -42,8 +50,8 @@ export const WorkoutForm = () => {
           updateWorkout({
             id: parseInt(workout.id),
             userId: parseInt(user),
-            timestamp: Date.now(),
-            name: workout.name,
+            date: timestamp,
+            name: name,
             workoutMood: workout.workoutMood,
             logEntry: workout.logEntry,
           })
@@ -51,9 +59,9 @@ export const WorkoutForm = () => {
         }else {
          
           addWorkout({
-            id: parseInt(workout.id),
+           // id: parseInt(workout.id),
             userId: parseInt(user),
-            timestamp: Date.now(),
+            date: timestamp,
             name: workout.name,
             workoutMood: workout.workoutMood,
             logEntry: workout.logEntry,
@@ -82,6 +90,7 @@ export const WorkoutForm = () => {
 
     return (
       <form className="workoutForm">
+      {/* checks to see if there is data alright in the workoutId */}
         <h2 className="workoutForm__title">{workoutId ? <>Edit Workout</> : <>New Workout</>}</h2>
         <fieldset>
           <div className="form-group">
@@ -92,15 +101,17 @@ export const WorkoutForm = () => {
             value={workout.name}/>
           </div>
         </fieldset>
+
+        
         <fieldset>
           <div className="form-group">
             <label htmlFor="date">Workout date: </label>
-            <input type="date" id="workoutDate" name="workoutDate" required autoFocus className="form-control"
+            <input type="date" id="date" name="date" required autoFocus className="form-control"
             placeholder="Workout Date"
             onChange={handleControlledInputChange}
-            defaultValue={workout.Date}/>
+            value={workout.date}/>
           </div>
-        </fieldset>
+        </fieldset> 
         <fieldset>
           <div className="form-group">
               <label htmlFor="focus">Journal:</label>
